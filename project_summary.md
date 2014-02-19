@@ -1,16 +1,14 @@
 # Project Title
-Insert the name of your project
+Adrift (Working title)
 
 ## Authors
-- Insert main author name, surname, github account
-- Insert other author(s) name, surname, github account (one per list element)
+- Mark C Mitchell, [zlot@github](https://www.github.com/zlot)
+- Hanley Weng, [tkres@github](https://www.github.com/tkres)
 
 ## Description
-Insert a description containing about 100 to 150 words, including your motivation and the meaning behind your idea and execution. The Judges will be keen to know how your idea pushes the boundaries of code and technology. 
+Proper description coming soon, we are at the concept generation stage right now. Concept ideas, sketches, and a moodboard to come in the following 3 days! 
 
 ## Link to Prototype
-NOTE: If your project lives online you can add one or more links here. Make sure you have a stable version of your project running before linking it.
-
 [Example Link](http://www.google.com "Example Link")
 
 ## Example Code
