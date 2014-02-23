@@ -1,5 +1,4 @@
-# Project Title
-Adrift (Working title)
+# Adrift (Working title)
 
 ## Authors
 - Mark C Mitchell, [zlot@github](https://www.github.com/zlot)
