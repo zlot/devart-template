@@ -2,7 +2,7 @@
 
 ## Authors
 - Mark C Mitchell, [zlot@github](https://www.github.com/zlot)
-- Hanley Weng, [tkres@github](https://www.github.com/tkres)
+- Hanley Weng, [hanleyweng@github](https://www.github.com/hanleyweng)
 
 ## Description
 Proper description coming soon, we are at the concept generation stage right now. Concept ideas, sketches, and a moodboard to come in the following 3 days! 
