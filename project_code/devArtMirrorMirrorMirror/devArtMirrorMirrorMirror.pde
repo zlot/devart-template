@@ -1,5 +1,9 @@
 import processing.video.*;
 
+// ScreenCapturer Library by OnFormative found here: http://www.onformative.com/lab/screencapturer/
+// Note - There may be an issue running this library off Processing 2.1.1 , 2.0.3 does appear to work though.
+import com.onformative.screencapturer.*;
+
 Capture video;
 
 PImage lastView;
@@ -21,8 +25,12 @@ int tintTheta = 0;
 
 // Vignette Controls
 PImage vignette;
-boolean vignetteOn = true;
+boolean vignetteOn = false;
 String vignetteFile = "vignette3.png";
+
+// ScreenCapturer
+ScreenCapturer capturer;
+boolean scrnCapturerOn = true;
 
 void setup() {
   size(1024, 768, P2D);
@@ -38,6 +46,9 @@ void setup() {
 
   // Vignette - Load Image
   if (vignetteOn) vignette = loadImage(vignetteFile);
+
+  // ScreenCapturer - Initiate
+  if (scrnCapturerOn) capturer = new ScreenCapturer(width, height, 30);
 }
 
 void setupBlur() {
@@ -74,6 +85,7 @@ void draw() {
   camPGraphic.pushStyle();
   camPGraphic.scale(-1, 1);
   camPGraphic.image(video, -width/2, -height/2, width, height);
+  if (scrnCapturerOn) camPGraphic.image(capturer.getImage(), -width/2, -height/2, width, height);
 
   if (lastView!=null) {
     //    pushStyle();
