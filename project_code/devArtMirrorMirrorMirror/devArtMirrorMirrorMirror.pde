@@ -66,36 +66,36 @@ void draw() {
   camPGraphic.pushStyle();
   camPGraphic.scale(-1, 1);
   camPGraphic.image(video, -width/2, -height/2, width, height);
-  
+
   if (lastView!=null) {
-//    pushStyle();
+    //    pushStyle();
     camPGraphic.scale(-0.97, 1);
     camPGraphic.tint(255, 177);
     camPGraphic.image(lastView, -width/2, -height/2, width, height);
     camPGraphic.shader(blur);
     camPGraphic.popStyle();
     camPGraphic.endDraw();
-    
+
     image(camPGraphic, 0, 0);
-    
+
     int r = 2;
 
     //    blend(lastView, 0, 0, width, height, r, r, width-r*2, height-r*2, BLEND);
     //    blend(lastView, 0, 0, width, height, r, r, width-r*2, height-r*2, DODGE);
     //    blend(lastView, 0, 0, width, height, r, r, width-r*2, height-r*2, EXCLUSION);
-//    filter(BLUR, 1);
+    //    filter(BLUR, 1);
 
 
     pushStyle();
     tintTheta = (tintTheta > 360) ? 1 : ++tintTheta;
-    
-//    tint(255, map(sin(radians(tintTheta)), -1, 1, 0, 255));
-//    println(map(sin(radians(tintTheta)), -1, 1, 0, 255));
-    
+
+    //    tint(255, map(sin(radians(tintTheta)), -1, 1, 0, 255));
+    //    println(map(sin(radians(tintTheta)), -1, 1, 0, 255));
+
     // playing with the optimum tint between blur/slitscreen, might be 35?
     tint(255, 35);
-    
-//    blend(bgCloudsImage, 0, 0, width, height, r, r, width-r*2, height-r*2, HARD_LIGHT);
+
+    //    blend(bgCloudsImage, 0, 0, width, height, r, r, width-r*2, height-r*2, HARD_LIGHT);
     image(bgCloudsImage, 0, 0, width, height);
     popStyle();
 
@@ -116,36 +116,36 @@ void draw() {
     pass2.endDraw();    
 
     image(pass2, 0, 0);
-    
 
-    if(frameCount % 8 == 0) {
+
+    if (frameCount % 8 == 0) {
       /*
         from: imagemagick.org/Usage/blur
-         -blur  {radius}x{sigma} 
-        The first value radius, is also important as it controls how big an area 
-        the operator should look at when spreading pixels. This value should 
-        typically be either '0' or at a minimum double that of the sigma.
-      */
+       -blur  {radius}x{sigma} 
+       The first value radius, is also important as it controls how big an area 
+       the operator should look at when spreading pixels. This value should 
+       typically be either '0' or at a minimum double that of the sigma.
+       */
       sigmaSizeY = map(mouseY, 0, height, 0, 80);
       blurSizeX = int(sigmaSizeY * map(mouseX, 0, width, 1, 6));    
-      
+
       blur.set("blurSize", blurSizeX);
       blur.set("sigma", sigmaSizeY);
-    }    
+    }
   }
 
   camPGraphic.beginDraw();
   lastView = get();
-//  lastView = camPGraphic.get();
+  //  lastView = camPGraphic.get();
   camPGraphic.endDraw();
-  
+
   drawDebug();
 }
 
 /*
   Little trick from http://forum.processing.org/one/topic/pgraphics-transparency.html
-  must be called from within a PGraphics beginDraw()/endDraw()
-*/
+ must be called from within a PGraphics beginDraw()/endDraw()
+ */
 void makeBackgroundTransparent(PGraphics pg) {
   pg.background(255, 255, 0);
   pg.clear();
@@ -159,5 +159,4 @@ void drawDebug() {
   text(frameRate, 30, height*.97);
   popStyle();
 }
-
 
