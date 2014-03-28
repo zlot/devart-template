@@ -49,7 +49,10 @@ boolean holdBlurToggle = false;
   if (vignetteOn) vignette = loadImage(vignetteFile);
 
   // ScreenCapturer - Initiate
-  if (scrnCapturerOn) capturer = new ScreenCapturer(width, height, 30);
+  if (scrnCapturerOn) { 
+    capturer = new ScreenCapturer(width, height, 30);
+//    capturer.setLocation(x,y);
+  }
 }
 
 void setupBlur() {
@@ -74,6 +77,7 @@ void setupBlur() {
 }
 
 void draw() {
+  
   if (video.available()) {
     video.read();
   }
@@ -113,27 +117,10 @@ void draw() {
     // playing with the optimum tint between blur/slitscreen, might be 35?
     tint(255, 35);
 
-    //    blend(bgCloudsImage, 0, 0, width, height, r, r, width-r*2, height-r*2, HARD_LIGHT);
+    // this is surprisingly important to the aesthetics of the captured blurs!
     image(bgCloudsImage, 0, 0, width, height);
     popStyle();
 
-    // Applying the blur shader along the vertical direction   
-    blur.set("horizontalPass", 0);
-    pass1.beginDraw(); 
-    makeBackgroundTransparent(pass1);  
-    pass1.shader(blur);  
-    pass1.image(src, 0, 0);
-    pass1.endDraw();
-
-    // Applying the blur shader along the horizontal direction      
-    blur.set("horizontalPass", 1);
-    pass2.beginDraw();            
-    makeBackgroundTransparent(pass2);
-    pass2.shader(blur);  
-    pass2.image(pass1, 0, 0);
-    pass2.endDraw();    
-
-    image(pass2, 0, 0);
 
     if (!holdBlurToggle && frameCount % 8 == 0) {
       /*
@@ -155,10 +142,7 @@ void draw() {
     camPGraphic.endDraw();
   }
 
-  camPGraphic.beginDraw();
   lastView = get();
-  //  lastView = camPGraphic.get();
-  camPGraphic.endDraw();
 
   // Draw Vignette
   if (vignetteOn) image(vignette, 0, 0, width, height);
