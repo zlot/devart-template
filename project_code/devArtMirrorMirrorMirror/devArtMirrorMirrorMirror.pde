@@ -1,23 +1,19 @@
 import processing.video.*;
 
 // ScreenCapturer Library by OnFormative found here: http://www.onformative.com/lab/screencapturer/
-// Note - There may be an issue running this library off Processing 2.1.1 , 2.0.3 does appear to work though.
+// Note - There may be an issue running this library off Processing 2.1.1. Works with 2.0.3.
 import com.onformative.screencapturer.*;
 
 Capture video;
-
 PImage lastView;
-
 PShader blur;
 PGraphics src;
 PGraphics pass1, pass2;
-
 PGraphics camPGraphic;
 
 int blurSizeX = 48;
 float sigmaSizeY = 24.0f;
 int blurLimit;
-
 PImage shadowImage, bgImage, bgCloudsImage;
 PImage camImage;
 
@@ -32,28 +28,40 @@ String vignetteFile = "vignette3.png";
 ScreenCapturer capturer;
 boolean scrnCapturerOn = true;
 
-void setup() {
-  size(1024, 768, P2D);
-boolean holdBlurToggle = false;
+// x, y, width, height of gHangout feed
+// Adjust appropriately!
+int gHangoutX = 216;
+int gHangoutY = 110;
+int gHangoutWidth = 1490;
+int gHangoutHeight = 890;
 
-boolean drawDebug = false;
+boolean holdBlurToggle = false;
+boolean drawDebug = true;
+PImage testImage;
+
+PImage[] cameraImages;
+
+void setup() {
+  size(gHangoutWidth, gHangoutHeight, P2D);
+
+  cameraImages = new PImage[8];
+  
+  // ScreenCapturer - Initiate
+  if (scrnCapturerOn)
+    capturer = new ScreenCapturer(gHangoutWidth, gHangoutHeight, 30);
+  
   // This the default video input, see the GettingStartedCapture 
   // example if it creates an error
   video = new Capture(this, 640/4, 480/4);
 
   // Start capturing the images from the camera
   video.start();
-
+  
+  
   setupBlur();
 
   // Vignette - Load Image
   if (vignetteOn) vignette = loadImage(vignetteFile);
-
-  // ScreenCapturer - Initiate
-  if (scrnCapturerOn) { 
-    capturer = new ScreenCapturer(width, height, 30);
-//    capturer.setLocation(x,y);
-  }
 }
 
 void setupBlur() {
@@ -81,11 +89,17 @@ void setupBlur() {
 
 void draw() {
   
-  if (video.available()) {
+  if(frameCount < 60 && scrnCapturerOn)
+    capturer.setLocation(gHangoutX, gHangoutY);
+  
+  if(video.available())
     video.read();
-  }
-  background(0);
 
+  background(0);
+  
+  // process each camera feed
+  processCameraFeeds();
+  
   blur.set("horizontalPass", 1);
 
   camPGraphic.beginDraw();
@@ -111,8 +125,6 @@ void draw() {
 
     image(camPGraphic, 0, 0);
 
-    int r = 2;
-
     pushStyle();
     tintTheta = (tintTheta > 360) ? 1 : ++tintTheta;
     tint(255, map(sin(radians(tintTheta)), -1, 1, 0, 103));
@@ -125,8 +137,7 @@ void draw() {
 
 
     if (!holdBlurToggle && frameCount % 8 == 0) {
-      /*
-        from: imagemagick.org/Usage/blur
+      /* from: imagemagick.org/Usage/blur
        -blur  {radius}x{sigma} 
        The first value radius, is also important as it controls how big an area 
        the operator should look at when spreading pixels. This value should 
@@ -148,10 +159,34 @@ void draw() {
 
   // Draw Vignette
   if (vignetteOn) image(vignette, 0, 0, width, height);
-
+  
+  for(PImage img : cameraImages)
+    image(img, random(400), random(400));
+    
   // Draw Debug
   if(drawDebug) drawDebug();
 }
+
+
+void processCameraFeeds() {
+  int leftMargin = 1022;
+  int feedWidth = 96;
+  int gap = 25;
+  PImage googleHangout = capturer.getImage();
+  
+  for(int i=0;i<cameraImages.length;i++) {
+    int y = i < 4 ? 644 : 644+gap+feedWidth;
+    cameraImages[i] = googleHangout.get(leftMargin + i*(feedWidth+gap), y, feedWidth, feedWidth);
+    if(drawDebug) rect(leftMargin + i*(feedWidth+gap), y, feedWidth, feedWidth);
+  }
+  // now that we have the cameraImages, 
+  // blend and place in their respective places!
+  
+  // %% create our custom cameraImage class.
+
+}
+
+
 
 /*
   Little trick from http://forum.processing.org/one/topic/pgraphics-transparency.html
