@@ -34,6 +34,7 @@ boolean scrnCapturerOn = true;
 
 void setup() {
   size(1024, 768, P2D);
+boolean holdBlurToggle = false;
 
   // This the default video input, see the GettingStartedCapture 
   // example if it creates an error
@@ -137,8 +138,7 @@ void draw() {
 
     image(pass2, 0, 0);
 
-
-    if (frameCount % 8 == 0) {
+    if (!holdBlurToggle && frameCount % 8 == 0) {
       /*
         from: imagemagick.org/Usage/blur
        -blur  {radius}x{sigma} 
@@ -181,10 +181,13 @@ void makeBackgroundTransparent(PGraphics pg) {
 
 void drawDebug() {
   pushStyle();
-  fill(0, 90, 90);
+  fill(50, 50, 50);
   text("blurSizeX: " + blurSizeX, 30, 20);
   text("sigmaSizeY: " + sigmaSizeY, 30, 45);
   text(frameRate, 30, height*.97);
   popStyle();
 }
 
+void mouseClicked() {
+  holdBlurToggle = !holdBlurToggle;
+}
