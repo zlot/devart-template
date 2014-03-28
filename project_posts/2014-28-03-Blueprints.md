@@ -1,4 +1,4 @@
-#Blueprints
+# Blueprints
 
 Finally visualising the structure in three dimensions helped us refine the layout of the intended space. 
 
