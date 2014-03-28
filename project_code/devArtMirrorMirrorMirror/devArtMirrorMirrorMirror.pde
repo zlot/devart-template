@@ -111,12 +111,9 @@ void draw() {
 
     pushStyle();
     tintTheta = (tintTheta > 360) ? 1 : ++tintTheta;
-
-    //    tint(255, map(sin(radians(tintTheta)), -1, 1, 0, 255));
-    //    println(map(sin(radians(tintTheta)), -1, 1, 0, 255));
-
+    tint(255, map(sin(radians(tintTheta)), -1, 1, 0, 103));
     // playing with the optimum tint between blur/slitscreen, might be 35?
-    tint(255, 35);
+    //tint(255, 35);
 
     // this is surprisingly important to the aesthetics of the captured blurs!
     image(bgCloudsImage, 0, 0, width, height);
