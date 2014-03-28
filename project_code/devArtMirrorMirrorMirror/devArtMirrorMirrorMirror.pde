@@ -84,13 +84,12 @@ void draw() {
   camPGraphic.beginDraw();
   camPGraphic.translate(width/2, height/2);
   camPGraphic.pushStyle();
-  camPGraphic.scale(-1, 1);
   camPGraphic.image(video, -width/2, -height/2, width, height);
   if (scrnCapturerOn) camPGraphic.image(capturer.getImage(), -width/2, -height/2, width, height);
 
   if (lastView!=null) {
     //    pushStyle();
-    camPGraphic.scale(-0.97, 1);
+    camPGraphic.scale(0.97);
     camPGraphic.tint(255, 177);
     camPGraphic.image(lastView, -width/2, -height/2, width, height);
     camPGraphic.shader(blur);
