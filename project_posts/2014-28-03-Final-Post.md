@@ -1,4 +1,7 @@
 # Final Post
+## The Concept
+In a room washed with white light, edges and corners chamfered out, fog machines create a space devoid of visual distance. This is a space that plays tricks on all senses. Traces of people, real and digital, flow through the area. A ganzfild effect is induced — was that me in the distance? Silhouettes seemingly appear through the haze, as  a recursive mirror reflection of the present. As travellers come and go, from digital observers to muddy footprints, the space remembers them all, adding us all to a record of time with logarithmic significance *.
+
 ## The Experience
 Travellers enter a long, dark, narrowing corridor. After some time, the traveller turns a corner and finds themselves immersed within a bright space. It takes a while for human eyes to adjust. Soon enough, they realise they can’t see the boundaries of this seemingly infinite landscape. Not being able to find any edges and immersed in fog, they lose their sense of space, distance, and time. 
 
