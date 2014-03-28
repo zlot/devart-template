@@ -100,12 +100,6 @@ void draw() {
 
     int r = 2;
 
-    //    blend(lastView, 0, 0, width, height, r, r, width-r*2, height-r*2, BLEND);
-    //    blend(lastView, 0, 0, width, height, r, r, width-r*2, height-r*2, DODGE);
-    //    blend(lastView, 0, 0, width, height, r, r, width-r*2, height-r*2, EXCLUSION);
-    //    filter(BLUR, 1);
-
-
     pushStyle();
     tintTheta = (tintTheta > 360) ? 1 : ++tintTheta;
 
