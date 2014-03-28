@@ -36,6 +36,7 @@ void setup() {
   size(1024, 768, P2D);
 boolean holdBlurToggle = false;
 
+boolean drawDebug = false;
   // This the default video input, see the GettingStartedCapture 
   // example if it creates an error
   video = new Capture(this, 640/4, 480/4);
@@ -148,7 +149,7 @@ void draw() {
   if (vignetteOn) image(vignette, 0, 0, width, height);
 
   // Draw Debug
-  drawDebug();
+  if(drawDebug) drawDebug();
 }
 
 /*
