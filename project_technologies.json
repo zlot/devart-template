@@ -10,13 +10,15 @@
             "insert toolkits"
         ],
         "languages": [
-            "Processing",
-            "d3"
+            "Processing"
         ]
     },
     "themes": [
         "echo",
         "imprint",
-        "ganzfield"
+        "ganzfield",
+        "fog",
+        "disorientation",
+        "immersive"
     ]
 }
