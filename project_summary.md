@@ -7,6 +7,9 @@
 ## Description
 In a room washed with white light, edges and corners chamfered out, fog machines create a space devoid of visual distance. This is a space that plays tricks on all senses. Traces of people, real and digital, flow through the area. A ganzfield effect is induced — was that me in the distance? Silhouettes seemingly appear through the haze, as  a recursive mirror reflection of the present. As travellers come and go, from digital observers to muddy footprints, the space remembers them all, adding us all to a record of time with logarithmic significance *.
 
+## The Setup
+![](../project_images/Room-Mockup.jpg)
+
 ## Link to Prototype
 [Example Link](http://www.google.com "Example Link")
 
