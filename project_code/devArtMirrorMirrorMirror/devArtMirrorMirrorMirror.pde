@@ -132,6 +132,10 @@ void draw() {
       blur.set("blurSize", blurSizeX);
       blur.set("sigma", sigmaSizeY);
     }
+  } 
+  else {
+    // completing the camPGraphic.beginDraw();
+    camPGraphic.endDraw();
   }
 
   camPGraphic.beginDraw();
