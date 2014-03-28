@@ -70,6 +70,8 @@ void setupBlur() {
   shadowImage = loadImage("shadow.png");
 
   bgCloudsImage = loadImage("bg_clouds.jpg");
+  testImage = loadImage("testImage.jpg");
+  
   src.beginDraw();
   src.background(0, 0);
   makeBackgroundTransparent(src);
@@ -91,9 +93,11 @@ void draw() {
   camPGraphic.pushStyle();
   camPGraphic.blendMode(BLEND);
   camPGraphic.image(video, -width/2, -height/2, width, height);
+  camPGraphic.image(bgCloudsImage, -width/2, -height/2, width, height);
   if (scrnCapturerOn) {
-    camPGraphic.blendMode(EXCLUSION);
-    camPGraphic.image(capturer.getImage(), -width/2, -height/2, width, height);
+    camPGraphic.blendMode(LIGHTEST);
+//    camPGraphic.image(capturer.getImage(), -width/2, -height/2, width, height);
+    camPGraphic.image(testImage, -width/2, -height/2, width, height);
   }
 
   if (lastView!=null) {
