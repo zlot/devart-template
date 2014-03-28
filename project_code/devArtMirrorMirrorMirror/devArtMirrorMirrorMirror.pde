@@ -4,8 +4,16 @@ import processing.video.*;
 // Note - There may be an issue running this library off Processing 2.1.1. Works with 2.0.3.
 import com.onformative.screencapturer.*;
 
+/* Authors: Mark C Mitchell and Hanley Weng
+ * DevArt 2014
+ * This is set to test mode, with a single, static image.
+ * There is much structure in place here ready for 8 cameras and 
+ * a hack for Google Hangouts.
+ * Hope you enjoy our work! :)
+ */
+
 Capture video;
-PImage lastView;
+PImage lastView; 
 PShader blur;
 PGraphics src;
 PGraphics pass1, pass2;
@@ -35,14 +43,16 @@ int gHangoutY = 110;
 int gHangoutWidth = 1490;
 int gHangoutHeight = 890;
 
-boolean holdBlurToggle = false;
-boolean drawDebug = true;
 PImage testImage;
-
 PImage[] cameraImages;
 
+boolean HOLD_BLUR_TOGGLE = true;
+boolean DRAW_DEBUG = false;
+boolean LIVE_TEST = false; // run only when we have a real google hangouts + 8 cameras running!
+
+
 void setup() {
-  size(gHangoutWidth, gHangoutHeight, P2D);
+  size(1920, 1080, P2D);
 
   cameraImages = new PImage[8];
   
@@ -99,20 +109,8 @@ void draw() {
   
   // process each camera feed
   processCameraFeeds();
+  integrateAndDrawCameraFeeds();
   
-  blur.set("horizontalPass", 1);
-
-  camPGraphic.beginDraw();
-  camPGraphic.translate(width/2, height/2);
-  camPGraphic.pushStyle();
-  camPGraphic.blendMode(BLEND);
-  camPGraphic.image(video, -width/2, -height/2, width, height);
-  camPGraphic.image(bgCloudsImage, -width/2, -height/2, width, height);
-  if (scrnCapturerOn) {
-    camPGraphic.blendMode(LIGHTEST);
-//    camPGraphic.image(capturer.getImage(), -width/2, -height/2, width, height);
-    camPGraphic.image(testImage, -width/2, -height/2, width, height);
-  }
 
   if (lastView!=null) {
     //    pushStyle();
@@ -127,7 +125,7 @@ void draw() {
 
     pushStyle();
     tintTheta = (tintTheta > 360) ? 1 : ++tintTheta;
-    tint(255, map(sin(radians(tintTheta)), -1, 1, 0, 103));
+    tint(255, map(sin(radians(tintTheta)), -1, 1, 0, 203));
     // playing with the optimum tint between blur/slitscreen, might be 35?
     //tint(255, 35);
 
@@ -135,8 +133,7 @@ void draw() {
     image(bgCloudsImage, 0, 0, width, height);
     popStyle();
 
-
-    if (!holdBlurToggle && frameCount % 8 == 0) {
+    if (!HOLD_BLUR_TOGGLE && frameCount % 8 == 0) {
       /* from: imagemagick.org/Usage/blur
        -blur  {radius}x{sigma} 
        The first value radius, is also important as it controls how big an area 
@@ -157,14 +154,12 @@ void draw() {
 
   lastView = get();
 
+  blendMode(BLEND);
   // Draw Vignette
   if (vignetteOn) image(vignette, 0, 0, width, height);
-  
-  for(PImage img : cameraImages)
-    image(img, random(400), random(400));
     
   // Draw Debug
-  if(drawDebug) drawDebug();
+  if(DRAW_DEBUG) drawDebug();
 }
 
 
@@ -177,15 +172,33 @@ void processCameraFeeds() {
   for(int i=0;i<cameraImages.length;i++) {
     int y = i < 4 ? 644 : 644+gap+feedWidth;
     cameraImages[i] = googleHangout.get(leftMargin + i*(feedWidth+gap), y, feedWidth, feedWidth);
-    if(drawDebug) rect(leftMargin + i*(feedWidth+gap), y, feedWidth, feedWidth);
+    if(DRAW_DEBUG) rect(leftMargin + i*(feedWidth+gap), y, feedWidth, feedWidth);
   }
-  // now that we have the cameraImages, 
-  // blend and place in their respective places!
-  
-  // %% create our custom cameraImage class.
-
 }
 
+void integrateAndDrawCameraFeeds() {
+ blur.set("horizontalPass", 1);
+
+  camPGraphic.beginDraw();
+  camPGraphic.translate(width/2, height/2);
+  camPGraphic.pushStyle();
+  camPGraphic.blendMode(BLEND);
+  camPGraphic.image(video, -width/2, -height/2, width, height);
+  camPGraphic.image(bgCloudsImage, -width/2, -height/2, width, height);
+  if (scrnCapturerOn) {
+    camPGraphic.blendMode(LIGHTEST); // Creates the best Ganzfield-type effect!
+    // Also gives interesting effects: EXCLUSION.
+    pushMatrix();
+    // scale up the camera feeds to reallife size
+    scale(7); // this is to be tweaked!
+    for(PImage img : cameraImages) {
+      if(LIVE_TEST) camPGraphic.image(img, -width/2, -height/2, width, height);
+      // TODO:: give each feed a unique x-value, so they can spread out around the installation.
+    }
+    popMatrix();
+    if(!LIVE_TEST) camPGraphic.image(testImage, -width/2, -height/2, width, height);
+  }
+}
 
 
 /*
@@ -207,5 +220,5 @@ void drawDebug() {
 }
 
 void mouseClicked() {
-  holdBlurToggle = !holdBlurToggle;
+  HOLD_BLUR_TOGGLE = !HOLD_BLUR_TOGGLE;
 }
