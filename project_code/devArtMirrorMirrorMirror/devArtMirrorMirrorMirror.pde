@@ -84,8 +84,12 @@ void draw() {
   camPGraphic.beginDraw();
   camPGraphic.translate(width/2, height/2);
   camPGraphic.pushStyle();
+  camPGraphic.blendMode(BLEND);
   camPGraphic.image(video, -width/2, -height/2, width, height);
-  if (scrnCapturerOn) camPGraphic.image(capturer.getImage(), -width/2, -height/2, width, height);
+  if (scrnCapturerOn) {
+    camPGraphic.blendMode(EXCLUSION);
+    camPGraphic.image(capturer.getImage(), -width/2, -height/2, width, height);
+  }
 
   if (lastView!=null) {
     //    pushStyle();
