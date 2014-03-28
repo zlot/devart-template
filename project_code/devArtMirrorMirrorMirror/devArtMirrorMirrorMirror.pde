@@ -19,6 +19,11 @@ PImage camImage;
 
 int tintTheta = 0;
 
+// Vignette Controls
+PImage vignette;
+boolean vignetteOn = true;
+String vignetteFile = "vignette3.png";
+
 void setup() {
   size(1024, 768, P2D);
 
@@ -30,6 +35,9 @@ void setup() {
   video.start();
 
   setupBlur();
+
+  // Vignette - Load Image
+  if (vignetteOn) vignette = loadImage(vignetteFile);
 }
 
 void setupBlur() {
@@ -143,6 +151,10 @@ void draw() {
   //  lastView = camPGraphic.get();
   camPGraphic.endDraw();
 
+  // Draw Vignette
+  if (vignetteOn) image(vignette, 0, 0, width, height);
+
+  // Draw Debug
   drawDebug();
 }
 
