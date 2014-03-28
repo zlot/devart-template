@@ -4,13 +4,19 @@
             "insert apis"
         ],
         "platforms": [
-            "insert platforms"
+            "Google Hangouts"
         ],
         "toolkits": [
             "insert toolkits"
+        ],
+        "languages": [
+            "Processing",
+            "d3"
         ]
     },
     "themes": [
-        "insert themes"
+        "echo",
+        "imprint",
+        "ganzfield"
     ]
 }
