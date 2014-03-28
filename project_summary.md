@@ -24,5 +24,7 @@ In a room washed with white light, edges and corners chamfered out, fog machines
 ## External Libraries
 * [Onformative's ScreenCapturer](https://github.com/onformative/ScreenCapturer)
 
-## Images
+## Images & Videos
 ![Cover Image](project_images/cover.jpg?raw=true "Cover Image")
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/al4CStHfMYo" frameborder="0" allowfullscreen></iframe>
